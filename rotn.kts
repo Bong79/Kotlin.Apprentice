@@ -39,42 +39,43 @@ if (actual== expected) {
 fun valueFromArgsPrefix(prefix: String): String? {
     val arg = args.firstOrNull { it.startsWith(prefix) }
 
-    if (arg== null  ) return null
+    if (arg == null) return null
 
-    val pieces= arg.split("=")
-    return if (pieces.size ==2){
-        pieces[1]
-    }else null
-}
+        val pieces = arg.split("=")
+        return if (pieces.size == 2) {
+            pieces[1]
+        } else null
 
-val stringToRotPrefix= "mM"
-//val stringToRotPrefix= "rotate="
-val numToRotPre ="places="
+    }
+
+//val stringToRotPrefix= "mM"
+    val stringToRotPrefix = "rotate="
+    val numToRotPre = "places="
 //val numToRotPre ="13"
 
-val stringToRot = valueFromArgsPrefix(stringToRotPrefix)
-if (stringToRot ==null) {
-    println("No str to rotate given")
-    exitProcess(0)
-}else {
-    val numToRot = valueFromArgsPrefix(numToRotPre)?.toInt()
-
-    if (numToRot == null) {
-        println("No num to rotate given")
-        println("Result: $stringToRot")
+    val stringToRot = valueFromArgsPrefix(stringToRotPrefix)
+    if (stringToRot == null) {
+        println("No str to rotate given")
         exitProcess(0)
     } else {
-        val rotated = rotate(stringToRot, numToRot)
+        val numToRot = valueFromArgsPrefix(numToRotPre)?.toInt()
 
-        println("$stringToRot rotated $numToRot places is $rotated")
-
-        val rerotated = rotate(rotated, numToRot)
-        println("$rotated rotated $numToRot places is $rerotated")
-
-        if (rotated == rerotated && numToRot != letters.size) {
-            println("You cracked encript & decript")
+        if (numToRot == null) {
+            println("No num to rotate given")
+            println("Result: $stringToRot")
+            exitProcess(0)
         } else {
-            println("try again")
+            val rotated = rotate(stringToRot, numToRot)
+
+            println("$stringToRot rotated $numToRot places is $rotated")
+
+            val rerotated = rotate(rotated, numToRot)
+            println("$rotated rotated $numToRot places is $rerotated")
+
+            if (rotated == rerotated && numToRot != letters.size) {
+                println("You cracked encript & decript")
+            } else {
+                println("try again")
+            }
         }
     }
-}
